@@ -28,11 +28,12 @@
 | Key Vault                               | Azure Key Vault is for storage of payment secrets, TLS certificates. |      |
 | Azure Firewall                          | One firewall in each region.                                 |      |
 | **Database Layer:**                     |                                                              |      |
-| Primary 5TB SQL                         | Azure SQL Databases 5TB<br />Primary vCore + 8 TB storage in one region<br />2X Secondary vCore + 8 TB storage in other regions<br /> |      |
-| Analytics NoSQL with 10TB               | Cosmos DB 10TB                                               |      |
-| Data Warehouse with 15TB                | Synapse DB 15TB                                              |      |
+| Primary 5TB SQL                         | Azure SQL Databases 5TB for transaction data. <br />Primary vCore + 8 TB storage in one region<br />2X Secondary vCore + 8 TB storage in other regions<br /> |      |
+| Analytics NoSQL with 10TB               | Cosmos DB 10TB<br />Analytics NoSQL stores customer behavior data, which is huge in **write** volume, flexible in structure. |      |
+| Data Warehouse with 15TB                | Synapse DB 15TB stores history and reporting. <br />Only work in Business hours(12 hours*22 workdays = 264 hours) |      |
 | **Data Analytics and ML:**              |                                                              |      |
-| GPU VMs + Azure ML                      |                                                              |      |
+| GPU VMs for ML                          | For a recommendation model, a mid-range option is NC A100 v4 series. Use Azure Machine Learning compute clusters, which scales to zero nodes when no training job is running. <br />One region only, sitting close to Data Warehouse. <br />4 X NC A100 v4,  200 h/month. |      |
+| Scheduled batch jobs                    | Run at night or off-peak and shut down VMs afterwards.<br />Nightly 4-hour jobs. |      |
 | **Backup and Disaster Recovery:**       |                                                              |      |
 | Redundant storage for disaster recovery |                                                              |      |
 | Geo-redundant storage in 3 regions      |                                                              |      |
